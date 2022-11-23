@@ -8,27 +8,32 @@ import { env } from "../../../env/server.mjs";
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-      }
+    session({ session, token, user }) {
+      // if (session.user) {
+      //   session.user.id = user.id;
+      // }
       return session;
+    },
+    jwt: (params)=> {
+      const {account, token, profile} = params;
+      const p: any = profile;
+      if (account?.access_token) {
+        token.access_token = account.access_token;
+      }
+      if(p?.accounts) {
+        token.accounts = p.accounts;
+      }
+      return token;
     },
   },
   // Configure one or more authentication providers
   providers: [
-    // DiscordProvider({
-    //   clientId: env.DISCORD_CLIENT_ID,
-    //   clientSecret: env.DISCORD_CLIENT_SECRET,
-    // }),
-    // ...add more providers here
     {
       authorization: `https://id.getharvest.com/oauth2/authorize`,
       userinfo: "https://id.getharvest.com/api/v2/accounts",
       token: {
         url: "https://id.getharvest.com/api/v2/oauth2/token",
         async request(context) {
-          console.log('request context', context)
 
           var myHeaders = new Headers();
           myHeaders.append("User-Agent", "MyApp (yourname@example.com)");
@@ -71,17 +76,17 @@ export const authOptions: NextAuthOptions = {
         token_endpoint_auth_method: "client_secret_post"
       },
       profile(profile, tokens) {
-        console.log('tokens', tokens)
         return {
           id: profile.user.id,
-          name: profile.user.first_name
+          name: profile.user.first_name,
+          accounts: profile.accounts
         }
       },
       clientId: "9K8b2xQLWBBycfBQQ3iFLb8t",
       clientSecret: "TBoaLj-8uBj47vTy5dpQVX9_SAv7PD60tg6bQDuzUcpc4Tq8hiJKR18TmhmSOu3SBOo8W7uKgX4fCLpcytmUJQ",
     }
   ],
-  debug: true,
+  //debug: true,
 };
 
 export default NextAuth(authOptions);
