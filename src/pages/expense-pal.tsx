@@ -1,7 +1,7 @@
 import Harvest from 'harvest'
 import React, { useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import ClientsComponent from '../components/ClientsComponent'
+import ProjectsComponent from '../components/ProjectsComponent'
 function ExpensePal() {
 
   return (
@@ -18,7 +18,7 @@ function ExpensePal() {
 
     <div className="container mx-auto">
       <form action="#" method="POST">
-        <ClientsComponent />
+        <ProjectsComponent />
       </form>
     </div>
   )
