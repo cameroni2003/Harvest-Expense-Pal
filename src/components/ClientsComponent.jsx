@@ -9,7 +9,7 @@ function ClientsComponent() {
     useEffect(() => {
         let done = false
 
-        fetch('/api/test')
+        fetch('/api/projects')
             .then((res) => {
                 if (!done) {
                     res.json().then((json) => setClients(json.clients))
