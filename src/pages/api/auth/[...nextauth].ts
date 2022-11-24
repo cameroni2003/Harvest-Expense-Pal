@@ -4,7 +4,7 @@ import { TokenEndpointHandler } from "next-auth/providers/oauth.js";
 import { getProviders } from "next-auth/react/index.js";
 
 import { env } from "../../../env/server.mjs";
-import HarvestProvider from "../../../providers/harvest-provider";
+import Harvest from "../../../providers/harvest";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
   },
   // Configure one or more authentication providers
   providers: [
-    HarvestProvider({
+    Harvest({
       clientId: process.env.HARVEST_CLIENT_ID!,
       clientSecret: process.env.HARVEST_CLIENT_SECRET!
     })
