@@ -1,6 +1,4 @@
-import Harvest from "harvest";
 import { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
-
 
 export interface HarvestProfile extends Record<string, any> {
     user: any,
@@ -20,17 +18,17 @@ export default function HarvestProvider<P extends HarvestProfile>(
             url: "https://id.getharvest.com/api/v2/oauth2/token",
             async request(context) {
 
-                var myHeaders = new Headers();
+                const myHeaders = new Headers();
                 myHeaders.append("User-Agent", "NextAuth Harvest Provider");
                 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-                var urlencoded = new URLSearchParams();
+                const urlencoded = new URLSearchParams();
                 urlencoded.append("code", context.params.code!);
                 urlencoded.append("client_id", context.provider.clientId!);
                 urlencoded.append("client_secret", context.provider.clientSecret!);
                 urlencoded.append("grant_type", "authorization_code");
 
-                var requestOptions: RequestInit = {
+                const requestOptions: RequestInit = {
                     method: 'POST',
                     headers: myHeaders,
                     body: urlencoded,

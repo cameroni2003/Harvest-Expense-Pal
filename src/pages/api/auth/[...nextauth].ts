@@ -1,15 +1,11 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import { TokenEndpointHandler } from "next-auth/providers/oauth.js";
-import { getProviders } from "next-auth/react/index.js";
-
 import { env } from "../../../env/server.mjs";
 import Harvest from "../../../providers/harvest";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
-    session({ session, token, user }) {
+    session({ session }) {
       // if (session.user) {
       //   session.user.id = user.id;
       // }
@@ -30,8 +26,8 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     Harvest({
-      clientId: process.env.HARVEST_CLIENT_ID!,
-      clientSecret: process.env.HARVEST_CLIENT_SECRET!
+      clientId: env.HARVEST_CLIENT_ID!,
+      clientSecret: env.HARVEST_CLIENT_SECRET!
     })
   ],
   //debug: true,
