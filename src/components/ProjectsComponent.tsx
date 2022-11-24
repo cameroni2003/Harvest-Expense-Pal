@@ -1,33 +1,23 @@
-import { Listbox, Menu } from '@headlessui/react'
+import { Listbox } from '@headlessui/react'
 import React, { useEffect, useState } from 'react'
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
 
-function ClientsComponent() {
-    const [projects, setProjects] = useState([])
-    const [selectedProject, setSelectedProject] = useState()
+function ProjectsComponent() {
+    const [projects, setProjects] = useState<any[]>([])
+    const [selectedProject, setSelectedProject] = useState<any>()
 
     useEffect(() => {
-        let done = false
-
         fetch('/api/harvest/projects')
-            .then((res) => {
-                if (!done) {
-                    res.json().then((json) => setProjects(json))
-                }
-            })
-
-        return () => {
-            done = true
-        }
+            .then((res) => res.json())
+            .then((json) => setProjects(json))
     }, [])
 
     return (
-        <>
-            <h3>Projects</h3>
+        <div className="block py-2">
             <Listbox value={selectedProject} onChange={setSelectedProject}>
-                <Listbox.Button className="relative w-auto cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                    <span className="block truncate">
-                        {selectedProject ? selectedProject.name : "Choose a Project"}
+                <Listbox.Button key="123" className="relative w-auto cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                    <span className="block truncate text-lg">
+                        {selectedProject ? selectedProject.name : "Choose a project..."}
                     </span>
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon
@@ -36,15 +26,12 @@ function ClientsComponent() {
                         />
                     </span>
                 </Listbox.Button>
-                <></>
-
                 <Listbox.Options className="mt-1 max-h-60 w-auto overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {Object.entries(projects).map(([clientName, projects]) => (
-                        <>
-                            <p>{clientName}</p>
-                            {projects.map((project) => (
+                        <div key={clientName}>
+                            {projects.map((project: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => (
                                 <Listbox.Option
-                                    key={project.id}
+                                    key={`${clientName}-${project.id}`}
                                     value={project}
                                     className={({ active }) =>
                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
@@ -54,7 +41,7 @@ function ClientsComponent() {
                                     {({ selected }) => (
                                         <>
                                             <span
-                                                className={`block truncate ${selected ? 'font-medium' : 'font-normal'
+                                                className={`block truncate text-lg ${selected ? 'font-medium' : 'font-normal'
                                                     }`}
                                             >
                                                 {project.name}
@@ -68,16 +55,12 @@ function ClientsComponent() {
                                     )}
                                 </Listbox.Option>
                             ))}
-                        </>
+                        </div>
                     ))}
                 </Listbox.Options>
             </Listbox>
-        </>
+        </div>
     )
 }
 
-function ListboxOptionGroup(client) {
-
-}
-
-export default ClientsComponent
+export default ProjectsComponent
