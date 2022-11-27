@@ -20,6 +20,7 @@ function arrayBufferToBase64(buffer: any) {
   return window.btoa(binary);
 }
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log("New expense request")
   const token: any = await getToken({ req });
   const accountId = token.accounts[0].id;
 
@@ -47,14 +48,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
   };
 
-  form.on("end", () => {
+  form.once("end", () => {
     const doc = new PDFDocument({ size: [1000,1000], margin: 0 });
     const outStream = doc.pipe(blobStream());
 
     const bufferArray = fileData.map((ab) => {
       return new Uint8Array(ab);
     });
-    
+
     const buffer = Buffer.concat(bufferArray);
     //doc.pipe(res);
     doc.image(buffer, { fit: [1000, 1000]});
