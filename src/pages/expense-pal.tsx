@@ -24,7 +24,7 @@ function ExpensePal() {
         <form
           action="/api/harvest/createExpense"
           method="POST"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
         >
           <h3 className="pb-2 text-2xl font-bold text-white">
             Projects/Categories
