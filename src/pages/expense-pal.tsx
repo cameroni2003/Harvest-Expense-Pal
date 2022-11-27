@@ -7,10 +7,10 @@ import Example from "../components/ComboExample";
 import FileUploadComponent from "../components/FileUploadComponent";
 
 function ExpensePal() {
-  const formRef = useRef();
+  const formRef = useRef<null | HTMLFormElement>(null);
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-    const data = new FormData(formRef.current);
+    const data = new FormData(formRef.current as HTMLFormElement);
     fetch("/api/harvest/createExpense", {
       body: data,
       method: "POST",
