@@ -1,13 +1,16 @@
-import Harvest from 'harvest'
-import React, { useEffect, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import ProjectsComponent from '../components/ProjectsComponent'
-import ExpenseCategories from '../components/ExpenseCategories'
+import Harvest from "harvest";
+import React, { useEffect, useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import ProjectsComponent from "../components/ProjectsComponent";
+import ExpenseCategories from "../components/ExpenseCategories";
+import Example from "../components/ComboExample";
+import FileUploadComponent from "../components/FileUploadComponent";
 function ExpensePal() {
+
 
   return (
     //     <div>
-    //     {clients.length ? 
+    //     {clients.length ?
     //     clients.map((c) => {
     //       return <div>{c.name}</div>
     //     })
@@ -16,16 +19,29 @@ function ExpensePal() {
     // }
 
     // </div>
-    <main className="flex min-h-screen flex-col bg-gradient-to-b bg-[#59869d]">
+    <main className="flex min-h-screen flex-col bg-[#59869d] bg-gradient-to-b">
       <div className="container mx-auto mt-32">
-        <form action="#" method="POST">
-          <h3 className="text-2xl text-white font-bold pb-2">Projects/Categories</h3>
+        <form
+          action="/api/harvest/createExpense"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <h3 className="pb-2 text-2xl font-bold text-white">
+            Projects/Categories
+          </h3>
           <ProjectsComponent />
           <ExpenseCategories />
+          <FileUploadComponent />
+          <button
+            type="submit"
+            className="inline-block rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+          >
+            Button
+          </button>
         </form>
       </div>
     </main>
-  )
+  );
 }
 
-export default ExpensePal
+export default ExpensePal;

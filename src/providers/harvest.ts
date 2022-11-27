@@ -55,11 +55,13 @@ export default function HarvestProvider<P extends HarvestProfile>(
         client: {
             token_endpoint_auth_method: "client_secret_post"
         },
-        profile(profile) {
+        profile(profile, tokens) {
+            console.log('tokens', tokens)
             return {
                 id: profile.user.id,
                 name: profile.user.first_name,
-                accounts: profile.accounts
+                accounts: profile.accounts,
+                accessToken: tokens.access_token
             }
         },
         options

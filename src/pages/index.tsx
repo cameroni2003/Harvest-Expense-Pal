@@ -1,11 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
-
+import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
-import { useEffect } from "react";
-import { getToken } from "next-auth/jwt";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });

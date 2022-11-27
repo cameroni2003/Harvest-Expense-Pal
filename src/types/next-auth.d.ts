@@ -1,4 +1,5 @@
-import { type DefaultSession } from "next-auth";
+import type { DefaultSession } from "next-auth";
+import type { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   /**
@@ -8,5 +9,20 @@ declare module "next-auth" {
     user?: {
       id: string;
     } & DefaultSession["user"];
+  }
+
+  interface Profile {
+    accounts?: object[]
+  }
+
+  interface JWTExt extends JWT {
+    accounts?: HarvestAccount[]
+    access_token?: string
+  }
+
+  interface HarvestAccount {
+    id: number
+    name: string
+    product: string
   }
 }
