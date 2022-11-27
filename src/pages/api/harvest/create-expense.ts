@@ -20,17 +20,12 @@ function arrayBufferToBase64(buffer: any) {
   return window.btoa(binary);
 }
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("New expense request")
+  console.log("New expense request");
   const token: any = await getToken({ req });
   const accountId = token.accounts[0].id;
+  let fields: any = {};
 
   let receiptFilename = "";
-  const expenseCategoryId = "9228495";
-  const projectId = "34886727";
-  const spentDate = "2019-01-31";
-  const totalCost = "1";
-  const notes = "This is a note about the expense.";
-  const billable = "true";
 
   const form = new formidable.IncomingForm();
   const fileData = new Array<ArrayBuffer>();
@@ -48,8 +43,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
   };
 
+  form.on("field", (fieldName, fieldValue) => {
+    fields[fieldName] = fieldValue
+    //form.emit("data", { name: "field", key: fieldName, value: fieldValue });
+  });
+
   form.once("end", () => {
-    const doc = new PDFDocument({ size: [1000,1000], margin: 0 });
+    const doc = new PDFDocument({ size: [1000, 1000], margin: 0 });
     const outStream = doc.pipe(blobStream());
 
     const bufferArray = fileData.map((ab) => {
@@ -58,13 +58,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const buffer = Buffer.concat(bufferArray);
     //doc.pipe(res);
-    doc.image(buffer, { fit: [1000, 1000]});
+    doc.image(buffer, { fit: [1000, 1000] });
     doc.end();
 
     outStream.on("finish", () => {
       const outBlob = outStream.toBlob("application/pdf");
 
-      res.end()
+      res.end();
       const myHeaders = new Headers();
       myHeaders.append("Harvest-Account-Id", accountId);
       myHeaders.append("Authorization", `Bearer ${token.access_token}`);
@@ -82,6 +82,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         body: formData,
         redirect: "follow",
       };
+
+      const expenseCategoryId = fields["category[id]"];
+      const projectId = fields["project[id]"];
+      const spentDate = "2019-01-31";
+      const totalCost = "1";
+      const notes = "This is a note about the expense.";
+      const billable = "true";
 
       const url = new URL("https://api.harvestapp.com/v2/expenses");
       url.searchParams.append("project_id", projectId);
@@ -101,6 +108,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   form.parse(req, (err, fields, files) => {
+    fields = fields;
+    console.log("fields", fields);
     console.log("form parse error", err);
   });
 
