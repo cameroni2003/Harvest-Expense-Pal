@@ -11,7 +11,8 @@ function ExpensePal() {
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     const data = new FormData(formRef.current as HTMLFormElement);
-    fetch("/api/harvest/createExpense", {
+    console.log('data', data)
+    fetch("/api/harvest/create-expense", {
       body: data,
       method: "POST",
     })
