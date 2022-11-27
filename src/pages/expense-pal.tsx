@@ -1,18 +1,26 @@
 import Harvest from "harvest";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import ProjectsComponent from "../components/ProjectsComponent";
 import ExpenseCategories from "../components/ExpenseCategories";
 import Example from "../components/ComboExample";
 import FileUploadComponent from "../components/FileUploadComponent";
+
 function ExpensePal() {
+  const formRef = useRef();
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-    //event.preventDefault()
+    const data = new FormData(formRef.current);
+    fetch("/api/harvest/createExpense", {
+      body: data,
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((json) => console.log(json));
+    event.preventDefault()
   }
 
   return (
-
     <main className="flex min-h-screen flex-col bg-[#59869d] bg-gradient-to-b">
       <div className="container mx-auto mt-32">
         <form
@@ -20,6 +28,7 @@ function ExpensePal() {
           method="POST"
           encType="multipart/form-data"
           onSubmit={handleSubmit}
+          ref={formRef}
         >
           <h3 className="pb-2 text-2xl font-bold text-white">
             Projects/Categories
