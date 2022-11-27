@@ -15,8 +15,8 @@ export default function ExpenseCategories() {
 
     return (
         <div className="py-2">
-            <Listbox value={selectedCat} onChange={setSelectedCat}>
-                <Listbox.Button className="relative w-auto cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <Listbox value={selectedCat} onChange={setSelectedCat} name="category">
+                <Listbox.Button className="relative w-auto cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                     <span className="block truncate text-lg">
                         {selectedCat ? selectedCat.name : "Choose a category..."}
                     </span>
@@ -34,7 +34,7 @@ export default function ExpenseCategories() {
                             key={category.id}
                             value={category}
                             className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                                `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                                 }`
                             }
                         >

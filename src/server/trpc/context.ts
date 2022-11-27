@@ -1,11 +1,14 @@
 import { type inferAsyncReturnType } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
+import { getToken, JWT } from "next-auth/jwt";
+import { NextRequest } from "next/server";
 
 import { getServerAuthSession } from "../common/get-server-auth-session";
 
 type CreateContextOptions = {
   session: Session | null;
+  token: Promise<JWT | null>;
 };
 
 /** Use this helper for:
@@ -16,6 +19,7 @@ type CreateContextOptions = {
 export const createContextInner = async (opts: CreateContextOptions) => {
   return {
     session: opts.session,
+    token: opts.token
   };
 };
 
@@ -29,8 +33,10 @@ export const createContext = async (opts: CreateNextContextOptions) => {
   // Get the session from the server using the unstable_getServerSession wrapper function
   const session = await getServerAuthSession({ req, res });
 
+  const token = getToken({req})
   return await createContextInner({
     session,
+    token
   });
 };
 

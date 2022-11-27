@@ -1,19 +1,17 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { Profile, type NextAuthOptions } from "next-auth";
 import { env } from "../../../env/server.mjs";
 import Harvest from "../../../providers/harvest";
+
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     session({ session }) {
-      // if (session.user) {
-      //   session.user.id = user.id;
-      // }
       return session;
     },
     jwt: (params)=> {
       const {account, token, profile} = params;
-      const p: any = profile;
+      const p = profile as Profile;
       if (account?.access_token) {
         token.access_token = account.access_token;
       }
