@@ -7,24 +7,19 @@ import Example from "../components/ComboExample";
 import FileUploadComponent from "../components/FileUploadComponent";
 function ExpensePal() {
 
+  function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+    //event.preventDefault()
+  }
 
   return (
-    //     <div>
-    //     {clients.length ?
-    //     clients.map((c) => {
-    //       return <div>{c.name}</div>
-    //     })
-    //     :
-    //   <div></div>
-    // }
 
-    // </div>
     <main className="flex min-h-screen flex-col bg-[#59869d] bg-gradient-to-b">
       <div className="container mx-auto mt-32">
         <form
           action="/api/harvest/createExpense"
           method="POST"
           encType="multipart/form-data"
+          onSubmit={handleSubmit}
         >
           <h3 className="pb-2 text-2xl font-bold text-white">
             Projects/Categories
