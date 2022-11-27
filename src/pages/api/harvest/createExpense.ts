@@ -1,6 +1,8 @@
 import formidable from "formidable";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
+import PDFDocument from "pdfkit";
+import blobStream from "blob-stream";
 
 export const config = {
   api: {
@@ -8,6 +10,15 @@ export const config = {
   },
 };
 
+function arrayBufferToBase64(buffer: any) {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i] as number);
+  }
+  return window.btoa(binary);
+}
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const token: any = await getToken({ req });
   const accountId = token.accounts[0].id;
@@ -37,34 +48,55 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   form.on("end", () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Harvest-Account-Id", accountId);
-    myHeaders.append("Authorization", `Bearer ${token.access_token}`);
+    const doc = new PDFDocument({ size: [1000,1000], margin: 0 });
+    const outStream = doc.pipe(blobStream());
 
-    const formData = new FormData();
-    formData.append("receipt", new Blob(fileData), receiptFilename);
+    const bufferArray = fileData.map((ab) => {
+      return new Uint8Array(ab);
+    });
+    
+    const buffer = Buffer.concat(bufferArray);
+    //doc.pipe(res);
+    doc.image(buffer, { fit: [1000, 1000]});
+    doc.end();
 
-    const requestOptions: RequestInit = {
-      method: "POST",
-      headers: myHeaders,
-      body: formData,
-      redirect: "follow",
-    };
+    outStream.on("finish", () => {
+      const outBlob = outStream.toBlob("application/pdf");
 
-    const url = new URL("https://api.harvestapp.com/v2/expenses");
-    url.searchParams.append("project_id", projectId);
-    url.searchParams.append("expense_category_id", expenseCategoryId);
-    url.searchParams.append("spent_date", spentDate);
-    url.searchParams.append("total_cost", totalCost);
-    url.searchParams.append("notes", notes);
-    url.searchParams.append("billable", billable);
+      res.end()
+      const myHeaders = new Headers();
+      myHeaders.append("Harvest-Account-Id", accountId);
+      myHeaders.append("Authorization", `Bearer ${token.access_token}`);
 
-    fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => console.log("error", error));
+      const formData = new FormData();
+      formData.append(
+        "receipt",
+        outBlob,
+        receiptFilename.toLocaleLowerCase().replace(".jpg", ".pdf")
+      );
+
+      const requestOptions: RequestInit = {
+        method: "POST",
+        headers: myHeaders,
+        body: formData,
+        redirect: "follow",
+      };
+
+      const url = new URL("https://api.harvestapp.com/v2/expenses");
+      url.searchParams.append("project_id", projectId);
+      url.searchParams.append("expense_category_id", expenseCategoryId);
+      url.searchParams.append("spent_date", spentDate);
+      url.searchParams.append("total_cost", totalCost);
+      url.searchParams.append("notes", notes);
+      url.searchParams.append("billable", billable);
+
+      fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+    });
   });
 
   form.parse(req, (err, fields, files) => {
