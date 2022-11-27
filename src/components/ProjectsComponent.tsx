@@ -32,9 +32,6 @@ function ProjectsComponent() {
     if (isSuccess) setProjects(data);
   }, [isSuccess]);
 
-  // if (!harvestProjects.data)
-  //     return <div>Loading projects...</div>
-
   return (
     <div className="block py-2">
       <div className="relative mt-1">

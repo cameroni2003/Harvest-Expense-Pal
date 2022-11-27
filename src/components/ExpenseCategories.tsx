@@ -1,17 +1,18 @@
 import { Listbox } from "@headlessui/react"
 import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/20/solid"
 import React, { useEffect, useState } from "react"
+import { trpc } from "../utils/trpc"
 
 
 export default function ExpenseCategories() {
     const [expenseCats, setExpenseCats] = useState<any[]>([])
     const [selectedCat, setSelectedCat] = useState<any>()
 
+      const { data, isSuccess } = trpc.harvest.getExpenseCategories.useQuery();
+
     useEffect(() => {
-        fetch('/api/harvest/expense-categories')
-            .then((res) => res.json())
-            .then(json => setExpenseCats(json))
-    }, [])
+      if (isSuccess) setExpenseCats(data);
+    }, [isSuccess]);
 
     return (
         <div className="py-2">
