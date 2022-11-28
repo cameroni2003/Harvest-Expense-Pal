@@ -24,6 +24,8 @@
     "next-auth": "^4.17.0",
     "pdfkit": "^0.13.0",
     "react": "18.2.0",
+    "react-currency-input-field": "^3.6.9",
+    "react-datepicker": "^4.8.0",
     "react-dom": "18.2.0",
     "superjson": "1.11.0",
     "zod": "^3.19.1"
@@ -35,6 +37,7 @@
     "@types/node": "^18.11.9",
     "@types/pdfkit": "^0.12.8",
     "@types/react": "^18.0.25",
+    "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
