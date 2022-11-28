@@ -11,18 +11,16 @@ interface Props {
 function DateComponent({ name, label }: Props) {
   const [date, setDate] = useState<Date>(new Date());
   return (
-      <div className="my-2">
-          <label>{label}</label>
+    <div className="my-4">
+      <label className="mb-1 block text-2xl font-bold text-slate-200">
+        {label}
+      </label>
       <DatePicker
         selected={date}
-              onChange={(date) => setDate(date ?? new Date())}
-              maxDate={new Date()}
+        onChange={(date) => setDate(date ?? new Date())}
+        maxDate={new Date()}
       />
-      <input
-        name={name}
-        type="hidden"
-        value={dateFormat(date, "yyyy-MM-dd")}
-          />
+      <input name={name} type="hidden" value={dateFormat(date, "yyyy-MM-dd")} />
     </div>
   );
 }
