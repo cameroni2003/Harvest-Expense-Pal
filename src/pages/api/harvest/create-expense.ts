@@ -72,7 +72,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       outStream.on('finish', () => {
         const outBlob = outStream.toBlob('application/pdf');
 
-        res.end();
         const myHeaders = new Headers();
         myHeaders.append('Harvest-Account-Id', accountId);
         myHeaders.append('Authorization', `Bearer ${token.access_token}`);
