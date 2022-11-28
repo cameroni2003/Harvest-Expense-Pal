@@ -1,6 +1,7 @@
 {
   "name": "harvest-expense-pal",
   "version": "0.1.0",
+  "prettier": "prettier-airbnb-config",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -24,6 +25,7 @@
     "next": "13.0.5",
     "next-auth": "^4.17.0",
     "pdfkit": "^0.13.0",
+    "prettier-airbnb-config": "^1.0.0",
     "react": "18.2.0",
     "react-currency-input-field": "^3.6.9",
     "react-datepicker": "^4.8.0",

@@ -1,10 +1,10 @@
-import { type inferAsyncReturnType } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "next-auth";
-import { getToken, JWT } from "next-auth/jwt";
-import { NextRequest } from "next/server";
+import {type inferAsyncReturnType} from '@trpc/server';
+import {type CreateNextContextOptions} from '@trpc/server/adapters/next';
+import {type Session} from 'next-auth';
+import {getToken, JWT} from 'next-auth/jwt';
+import {NextRequest} from 'next/server';
 
-import { getServerAuthSession } from "../common/get-server-auth-session";
+import {getServerAuthSession} from '../common/get-server-auth-session';
 
 type CreateContextOptions = {
   session: Session | null;
@@ -19,7 +19,7 @@ type CreateContextOptions = {
 export const createContextInner = async (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    token: opts.token
+    token: opts.token,
   };
 };
 
@@ -28,15 +28,15 @@ export const createContextInner = async (opts: CreateContextOptions) => {
  * @link https://trpc.io/docs/context
  **/
 export const createContext = async (opts: CreateNextContextOptions) => {
-  const { req, res } = opts;
+  const {req, res} = opts;
 
   // Get the session from the server using the unstable_getServerSession wrapper function
-  const session = await getServerAuthSession({ req, res });
+  const session = await getServerAuthSession({req, res});
 
-  const token = getToken({req})
+  const token = getToken({req});
   return await createContextInner({
     session,
-    token
+    token,
   });
 };
 

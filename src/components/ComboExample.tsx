@@ -1,29 +1,29 @@
-import { Fragment, useState } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import {Fragment, useState} from 'react';
+import {Combobox, Transition} from '@headlessui/react';
+import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid';
 
 const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-  { id: 5, name: 'Tanya Fox' },
-  { id: 6, name: 'Hellen Schmidt' },
-]
+  {id: 1, name: 'Wade Cooper'},
+  {id: 2, name: 'Arlene Mccoy'},
+  {id: 3, name: 'Devon Webb'},
+  {id: 4, name: 'Tom Cook'},
+  {id: 5, name: 'Tanya Fox'},
+  {id: 6, name: 'Hellen Schmidt'},
+];
 
 export default function Example() {
-  const [selected, setSelected] = useState(people[0])
-  const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState(people[0]);
+  const [query, setQuery] = useState('');
 
   const filteredPeople =
     query === ''
       ? people
-      : people.filter((person) =>
+      : people.filter(person =>
           person.name
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
-        )
+        );
 
   return (
     <div className="fixed top-16 w-72">
@@ -33,13 +33,10 @@ export default function Example() {
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
               displayValue={(person: any) => person.name}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={event => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </Combobox.Button>
           </div>
           <Transition
@@ -55,22 +52,20 @@ export default function Example() {
                   Nothing found.
                 </div>
               ) : (
-                filteredPeople.map((person) => (
+                filteredPeople.map(person => (
                   <Combobox.Option
                     key={person.id}
-                    className={({ active }) =>
+                    className={({active}) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active ? 'bg-teal-600 text-white' : 'text-gray-900'
                       }`
                     }
                     value={person}
                   >
-                    {({ selected, active }) => (
+                    {({selected, active}) => (
                       <>
                         <span
-                          className={`block truncate ${
-                            selected ? 'font-medium' : 'font-normal'
-                          }`}
+                          className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
                         >
                           {person.name}
                         </span>
@@ -93,5 +88,5 @@ export default function Example() {
         </div>
       </Combobox>
     </div>
-  )
+  );
 }
