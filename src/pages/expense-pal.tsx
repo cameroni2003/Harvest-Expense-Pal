@@ -5,20 +5,24 @@ import ProjectsComponent from "../components/ProjectsComponent";
 import ExpenseCategories from "../components/ExpenseCategories";
 import Example from "../components/ComboExample";
 import FileUploadComponent from "../components/FileUploadComponent";
+import TotalComponent from "../components/TotalComponent";
+import VendorComponent from "../components/VendorComponent";
+import NotesComponent from "../components/NotesComponent";
+import DateComponent from "../components/DateComponent";
 
 function ExpensePal() {
   const formRef = useRef<null | HTMLFormElement>(null);
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     const data = new FormData(formRef.current as HTMLFormElement);
-    console.log('data', data)
+    console.log("data", data);
     fetch("/api/harvest/create-expense", {
       body: data,
       method: "POST",
     })
       .then((res) => res.json())
       .then((json) => console.log(json));
-    event.preventDefault()
+    event.preventDefault();
   }
 
   return (
@@ -36,7 +40,12 @@ function ExpensePal() {
           </h3>
           <ProjectsComponent />
           <ExpenseCategories />
+          <DateComponent name="harvestDate" />
+          <DateComponent name="expenseDate" />
           <FileUploadComponent />
+          <VendorComponent />
+          <TotalComponent />
+          <NotesComponent />
           <button
             type="submit"
             className="inline-block rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"

@@ -19,6 +19,7 @@ function arrayBufferToBase64(buffer: any) {
   }
   return window.btoa(binary);
 }
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("New expense request");
   const token: any = await getToken({ req });
@@ -73,7 +74,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       formData.append(
         "receipt",
         outBlob,
-        receiptFilename.toLocaleLowerCase().replace(".jpg", ".pdf")
+        `${fields.expenseDate}_${fields["project[name]"]}_${fields["category[name]"]}_${fields.vendor}_${fields.total}.pdf`
       );
 
       const requestOptions: RequestInit = {
@@ -85,9 +86,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       const expenseCategoryId = fields["category[id]"];
       const projectId = fields["project[id]"];
-      const spentDate = "2019-01-31";
-      const totalCost = "1";
-      const notes = "This is a note about the expense.";
+      const spentDate = fields.harvestDate;
+      const totalCost = fields.total;
+      const notes = fields.notes;
       const billable = "true";
 
       const url = new URL("https://api.harvestapp.com/v2/expenses");
@@ -115,3 +116,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.status(200).json({ success: true });
 };
+
+function buildFilename(fields: any) {
+  return ``
+}
