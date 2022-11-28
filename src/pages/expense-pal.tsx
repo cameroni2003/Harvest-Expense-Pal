@@ -40,8 +40,8 @@ function ExpensePal() {
           </h3>
           <ProjectsComponent />
           <ExpenseCategories />
-          <DateComponent name="harvestDate" />
-          <DateComponent name="expenseDate" />
+          <DateComponent label="Harvest Date" name="harvestDate" />
+          <DateComponent label="Expense Date" name="expenseDate" />
           <FileUploadComponent />
           <VendorComponent />
           <TotalComponent />
