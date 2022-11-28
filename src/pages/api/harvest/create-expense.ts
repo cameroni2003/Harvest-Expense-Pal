@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import PDFDocument from "pdfkit";
 import blobStream from "blob-stream";
+import sizeOf from "image-size";
 
 export const config = {
   api: {
@@ -45,21 +46,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   form.on("field", (fieldName, fieldValue) => {
-    fields[fieldName] = fieldValue
+    fields[fieldName] = fieldValue;
     //form.emit("data", { name: "field", key: fieldName, value: fieldValue });
   });
 
   form.once("end", () => {
-    const doc = new PDFDocument({ size: [1000, 1000], margin: 0 });
-    const outStream = doc.pipe(blobStream());
-
     const bufferArray = fileData.map((ab) => {
       return new Uint8Array(ab);
     });
 
     const buffer = Buffer.concat(bufferArray);
+    const size = sizeOf(buffer);
+
+    const doc = new PDFDocument({
+      size: [size.width ?? 1000, size.height ?? 1000],
+      margin: 0,
+    });
+    const outStream = doc.pipe(blobStream());
+
     //doc.pipe(res);
-    doc.image(buffer, { fit: [1000, 1000] });
+    doc.image(buffer, { fit: [size.width ?? 1000, size.height ?? 1000] });
     doc.end();
 
     outStream.on("finish", () => {
@@ -118,5 +124,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 function buildFilename(fields: any) {
-  return ``
+  return ``;
 }
