@@ -14,7 +14,7 @@ function arrayBufferToBase64(buffer: any) {
   let binary = "";
   const bytes = new Uint8Array(buffer);
   const len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     binary += String.fromCharCode(bytes[i] as number);
   }
   return window.btoa(binary);
@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("New expense request");
   const token: any = await getToken({ req });
   const accountId = token.accounts[0].id;
-  let fields: any = {};
+  const fields: any = {};
 
   let receiptFilename = "";
 

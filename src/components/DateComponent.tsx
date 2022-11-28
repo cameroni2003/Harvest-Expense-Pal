@@ -5,12 +5,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
     name: string
+    label: string
 }
 
-function DateComponent({ name }: Props) {
+function DateComponent({ name, label }: Props) {
   const [date, setDate] = useState<Date>(new Date());
   return (
-    <div>
+      <div className="my-2">
+          <label>{label}</label>
       <DatePicker
         selected={date}
               onChange={(date) => setDate(date ?? new Date())}
