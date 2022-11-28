@@ -126,7 +126,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  res.status(200).json({success: true});
+  //res.status(200).json({success: true});
 };
 
 function buildFilename(fields: any) {
