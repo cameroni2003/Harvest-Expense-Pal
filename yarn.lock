@@ -5089,6 +5089,11 @@ prepend-http@^1.0.1:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==
 
+prettier-airbnb-config@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/prettier-airbnb-config/-/prettier-airbnb-config-1.0.0.tgz#a070740d421b3a59ad31f032d467cfbb6fafc5d1"
+  integrity sha512-FsEe38fJftYi19AskzuOWbw8zBnXDcZwv2Uw8BI65ROyK4hE6+iojXVFu+FiYNfrRBL+UZJbl2XGk56Ur2QGsA==
+
 prettier-plugin-tailwindcss@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.2.0.tgz#5d6823ef8356103fd0aa19d1e08cb49534100464"

@@ -1,27 +1,27 @@
-import Harvest from "harvest";
-import React, { useEffect, useRef, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import ProjectsComponent from "../components/ProjectsComponent";
-import ExpenseCategories from "../components/ExpenseCategories";
-import Example from "../components/ComboExample";
-import FileUploadComponent from "../components/FileUploadComponent";
-import TotalComponent from "../components/TotalComponent";
-import VendorComponent from "../components/VendorComponent";
-import NotesComponent from "../components/NotesComponent";
-import DateComponent from "../components/DateComponent";
+import Harvest from 'harvest';
+import React, {useEffect, useRef, useState} from 'react';
+import {Listbox, Transition} from '@headlessui/react';
+import ProjectsComponent from '../components/ProjectsComponent';
+import ExpenseCategories from '../components/ExpenseCategories';
+import Example from '../components/ComboExample';
+import FileUploadComponent from '../components/FileUploadComponent';
+import TotalComponent from '../components/TotalComponent';
+import VendorComponent from '../components/VendorComponent';
+import NotesComponent from '../components/NotesComponent';
+import DateComponent from '../components/DateComponent';
 
 function ExpensePal() {
   const formRef = useRef<null | HTMLFormElement>(null);
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     const data = new FormData(formRef.current as HTMLFormElement);
-    console.log("data", data);
-    fetch("/api/harvest/create-expense", {
+    console.log('data', data);
+    fetch('/api/harvest/create-expense', {
       body: data,
-      method: "POST",
+      method: 'POST',
     })
-      .then((res) => res.json())
-      .then((json) => console.log(json));
+      .then(res => res.json())
+      .then(json => console.log(json));
     event.preventDefault();
   }
 
@@ -35,9 +35,7 @@ function ExpensePal() {
           onSubmit={handleSubmit}
           ref={formRef}
         >
-          <h3 className="pb-2 text-2xl font-bold text-white">
-            Projects/Categories
-          </h3>
+          <h3 className="pb-2 text-2xl font-bold text-white">Projects/Categories</h3>
           <ProjectsComponent />
           <ExpenseCategories />
           <DateComponent label="Harvest Date" name="harvestDate" />
