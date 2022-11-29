@@ -56,13 +56,21 @@ export default function HarvestProvider<P extends HarvestProfile>(
     },
     profile(profile, tokens) {
       console.log('tokens', tokens);
-      console.log('profile', profile)
+      console.log('profile', profile);
       return {
         id: profile.user.id,
-        name: `${profile.user.first_name} ${profile.user.last_name}` ,
+        name: `${profile.user.first_name} ${profile.user.last_name}`,
         accounts: profile.accounts,
         accessToken: tokens.access_token,
       };
+    },
+    style: {
+      logo: '',
+      logoDark: '',
+      bg: '#fff',
+      bgDark: '#000',
+      text: '#000',
+      textDark: '#fff'
     },
     options,
   };
