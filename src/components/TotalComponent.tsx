@@ -8,7 +8,7 @@ function TotalComponent() {
       <label className="mb-1 block text-2xl font-bold text-slate-200">Total</label>
 
       <CurrencyInput
-        className="lead-5 rounded-lg bg-white py-2 pl-3 text-xl text-gray-900"
+        className="sm:w-3/5 lead-5 w-full rounded-lg bg-white py-2 pl-3 text-xl text-gray-900"
         onValueChange={value => setTotal(value ?? '0.00')}
         disableAbbreviations={true}
         defaultValue={0}

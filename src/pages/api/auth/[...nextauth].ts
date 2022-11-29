@@ -20,6 +20,9 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
+  theme: {
+    logo: 'https://logos-world.net/wp-content/uploads/2022/04/Harvest-Logo.png',
+  },
   // Configure one or more authentication providers
   providers: [
     Harvest({

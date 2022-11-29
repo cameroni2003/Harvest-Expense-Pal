@@ -31,9 +31,9 @@ function ExpenseCategories() {
 
   return (
     <div className="my-4 block">
-      <div className="relative mt-1 w-72">
+      <div className="sm:w-3/5 relative mt-1 w-full">
         <Combobox value={selectedCat} onChange={setSelectedCat} name="category">
-          <div className="relative w-auto cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+          <div className="relative cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               required
               onFocus={() => setOpen(true)}
@@ -41,13 +41,13 @@ function ExpenseCategories() {
               placeholder="Choose a category..."
               displayValue={(project: any) => project?.name}
               onChange={event => setQuery(event.target.value)}
-              className="w-60 border-none py-2 pl-3 pr-10 text-lg leading-5 text-gray-900 focus-visible:outline-none"
+              className="border-none py-2 pl-3 pr-10 text-lg leading-5 text-gray-900 focus-visible:outline-none"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </Combobox.Button>
           </div>
-          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-72 cursor-pointer overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 drop-shadow-2xl focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 cursor-pointer overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 drop-shadow-2xl focus:outline-none sm:text-sm">
             {filteredCategories.map((category: any) => (
               <Combobox.Option
                 key={category.id}
