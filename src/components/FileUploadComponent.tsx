@@ -52,7 +52,7 @@ function FileUploadComponent() {
                 )}
                 <input
                   ref={fileInputRef}
-                  capture
+                  capture="environment"
                   accept=".jpg"
                   required
                   type="file"
