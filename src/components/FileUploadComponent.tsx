@@ -4,11 +4,6 @@ function FileUploadComponent() {
   const fileInputRef = useRef<null | HTMLInputElement>(null);
   const [files, setFiles] = useState<FileList | null>();
 
-  const hasMask = {
-    position: 'absolute',
-    clip: 'rect(10px, 150px, 130px, 10px)',
-  };
-
   function onFileChange(event: React.SyntheticEvent<HTMLInputElement>) {
     (event.target as HTMLInputElement).files;
   }
@@ -25,7 +20,7 @@ function FileUploadComponent() {
                 {files && files.length > 0 && (
                   <div className="block text-left">
                     {Array.from(files || []).map(file => (
-                      <p>{file.name}</p>
+                      <p key={file.name}>{file.name}</p>
                     ))}
                   </div>
                 )}
