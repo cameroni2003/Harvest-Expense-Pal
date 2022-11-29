@@ -80,7 +80,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         formData.append(
           'receipt',
           outBlob,
-          `${fields.expenseDate.replaceAll('-', '')}_${fields['category[name]']}_${fields.vendor}_${fields.purpose}_${fields.total}_${fields.initials}.pdf`
+          `${fields.expenseDate.replaceAll('-', '')}_${fields['category[name]']}_${fields.vendor}_${
+            fields.purpose
+          }_${fields.total}_${fields.initials}.pdf`
         );
 
         const requestOptions: RequestInit = {
@@ -109,6 +111,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           .then(response => response.json())
           .then(result => {
             console.log(result);
+            res.status(200).json({success: true});
           })
           .catch(error => console.log('error', error));
       });
@@ -122,7 +125,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({success: false});
-    
+
     return;
   }
 

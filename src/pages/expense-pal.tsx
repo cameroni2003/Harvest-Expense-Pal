@@ -23,7 +23,14 @@ function ExpensePal() {
       method: 'POST',
     })
       .then(res => res.json())
-      .then(json => console.log(json));
+      .then(json => {
+
+        if (json.success) {
+          alert("Expense Submitted")
+          window.location.reload()
+        }
+        console.log(json)
+      });
     event.preventDefault();
   }
 
