@@ -80,7 +80,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         formData.append(
           'receipt',
           outBlob,
-          `${fields.expenseDate}_${fields['project[name]']}_${fields['category[name]']}_${fields.vendor}_${fields.total}.pdf`
+          `${fields.expenseDate.replaceAll('-', '')}_${fields['category[name]']}_${fields.vendor}_${fields.purpose}_${fields.total}_${fields.initials}.pdf`
         );
 
         const requestOptions: RequestInit = {
