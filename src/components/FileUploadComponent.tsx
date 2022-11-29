@@ -53,7 +53,7 @@ function FileUploadComponent() {
                 <input
                   ref={fileInputRef}
                   capture
-                  accept="image/jpg"
+                  accept=".jpg"
                   required
                   type="file"
                   name="receipt"
