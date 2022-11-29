@@ -31,7 +31,7 @@ function FileUploadComponent() {
                     from your computer
                   </p>
                 </div>
-                <input type="file" name="receipt" />
+                <input required type="file" name="receipt" />
               </label>
             </div>
           </div>

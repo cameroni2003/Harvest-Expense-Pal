@@ -9,6 +9,8 @@ import TotalComponent from '../components/TotalComponent';
 import VendorComponent from '../components/VendorComponent';
 import NotesComponent from '../components/NotesComponent';
 import DateComponent from '../components/DateComponent';
+import PurposeComponent from '../components/PurposeComponent';
+import InitialsComponent from '../components/InitialsComponent';
 
 function ExpensePal() {
   const formRef = useRef<null | HTMLFormElement>(null);
@@ -26,8 +28,8 @@ function ExpensePal() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col bg-[#59869d] bg-gradient-to-b">
-      <div className="container mx-auto mt-32">
+    <main className="flex px-5 py-5 min-h-screen flex-col bg-[#59869d] bg-gradient-to-b">
+      <div className="container mx-auto mt-">
         <form
           action="/api/harvest/createExpense"
           method="POST"
@@ -43,12 +45,14 @@ function ExpensePal() {
           <FileUploadComponent />
           <VendorComponent />
           <TotalComponent />
+          <PurposeComponent />
           <NotesComponent />
+          <InitialsComponent />
           <button
             type="submit"
-            className="inline-block rounded bg-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+            className="inline-block my-6 rounded bg-blue-600 px-6 py-2.5 text-lg font-bold leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
           >
-            Button
+            Submit Expense
           </button>
         </form>
       </div>
