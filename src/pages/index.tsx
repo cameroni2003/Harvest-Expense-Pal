@@ -11,6 +11,7 @@ import NotesComponent from '../components/NotesComponent';
 import DateComponent from '../components/DateComponent';
 import PurposeComponent from '../components/PurposeComponent';
 import InitialsComponent from '../components/InitialsComponent';
+import {signOut} from 'next-auth/react';
 
 function ExpensePal() {
   const formRef = useRef<null | HTMLFormElement>(null);
@@ -40,6 +41,16 @@ function ExpensePal() {
   return (
     <main className="flex min-h-screen flex-col bg-[#59869d] bg-gradient-to-b px-5 py-5">
       <div className="mt- container mx-auto">
+        <button
+          onClick={e => {
+            e.preventDefault();
+            signOut();
+          }}
+          type="submit"
+          className="float-right mb-6 inline-block rounded bg-blue-600 px-6 py-2.5 text-lg font-bold leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+        >
+          Sign out
+        </button>
         <form
           action="/api/harvest/createExpense"
           method="POST"
@@ -61,7 +72,7 @@ function ExpensePal() {
           <button
             disabled={submitting}
             type="submit"
-            className="my-6 inline-block rounded bg-blue-600 px-6 py-2.5 text-lg font-bold leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+            className="my-6 block inline-block rounded bg-blue-600 px-6 py-2.5 text-lg font-bold leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
           >
             Submit Expense
           </button>
