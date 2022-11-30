@@ -34,8 +34,4 @@ export const harvestRouter = router({
 
     return expenseCategories.expense_categories;
   }),
-
-  createExpense: protectedProcedure.query(async ({ctx}) => {
-    return {success: true};
-  }),
 });

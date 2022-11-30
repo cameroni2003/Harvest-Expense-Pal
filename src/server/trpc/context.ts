@@ -1,8 +1,7 @@
 import {type inferAsyncReturnType} from '@trpc/server';
 import {type CreateNextContextOptions} from '@trpc/server/adapters/next';
 import {type Session} from 'next-auth';
-import {getToken, JWT} from 'next-auth/jwt';
-import {NextRequest} from 'next/server';
+import {getToken, type JWT} from 'next-auth/jwt';
 
 import {getServerAuthSession} from '../common/get-server-auth-session';
 
