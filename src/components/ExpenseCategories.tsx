@@ -31,7 +31,7 @@ function ExpenseCategories() {
 
   return (
     <div className="my-4 block">
-      <div className="sm:w-3/5 relative mt-1 w-full">
+      <div className="relative mt-1 w-full sm:w-3/5">
         <Combobox value={selectedCat} onChange={setSelectedCat} name="category">
           <div className="relative cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input

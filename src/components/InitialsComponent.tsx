@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function InitialsComponent() {
   return (
@@ -13,4 +13,4 @@ function InitialsComponent() {
   );
 }
 
-export default InitialsComponent
+export default InitialsComponent;
