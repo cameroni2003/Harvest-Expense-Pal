@@ -15,11 +15,11 @@ import {signOut} from 'next-auth/react';
 
 function ExpensePal() {
   const formRef = useRef<null | HTMLFormElement>(null);
-  const submitBtnRef = useRef<null | HTMLButtonElement>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     const data = new FormData(formRef.current as HTMLFormElement);
+    
     setSubmitting(true);
 
     fetch('/api/harvest/create-expense', {
