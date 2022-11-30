@@ -1,4 +1,4 @@
-import {OAuthConfig, OAuthUserConfig} from 'next-auth/providers';
+import type {OAuthConfig, OAuthUserConfig} from 'next-auth/providers';
 
 export interface HarvestProfile extends Record<string, any> {
   user: any;
