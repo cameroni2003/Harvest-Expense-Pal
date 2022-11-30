@@ -70,7 +70,7 @@ export default function HarvestProvider<P extends HarvestProfile>(
       bg: '#fff',
       bgDark: '#000',
       text: '#000',
-      textDark: '#fff'
+      textDark: '#fff',
     },
     options,
   };
