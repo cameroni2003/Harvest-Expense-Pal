@@ -40,8 +40,6 @@ export default function HarvestProvider<P extends HarvestProfile>(
           .then(response => response.json())
           .catch(error => console.log('error', error));
 
-        console.log('tokens', tokens);
-
         return {
           tokens: {
             access_token: tokens.access_token,
@@ -55,8 +53,6 @@ export default function HarvestProvider<P extends HarvestProfile>(
       token_endpoint_auth_method: 'client_secret_post',
     },
     profile(profile, tokens) {
-      console.log('tokens', tokens);
-      console.log('profile', profile);
       return {
         id: profile.user.id,
         name: `${profile.user.first_name} ${profile.user.last_name}`,
